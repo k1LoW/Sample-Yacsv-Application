@@ -6,11 +6,35 @@ App::uses('AppModel', 'Model');
  */
 class Post extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'title';
+    /**
+     * Display field
+     *
+     * @var string
+     */
+    public $displayField = 'title';
 
+    public $validate = array(
+        'title' => array(
+            'notEmptyTitle' => array(
+                'rule' => array('notEmpty'),
+                'allowEmpty' => false,
+                'required' => true,
+                'last' => true,
+            ),
+            'isUniqueTitle' => array(
+                'rule' => array('isUnique'),
+                'allowEmpty' => false,
+                'required' => true,
+                'last' => true,
+            ),
+        ),
+        'body' => array(
+            'notEmptyBody' => array(
+                'rule' => array('notempty'),
+                'allowEmpty' => false,
+                'required' => true,
+                'last' => true,
+            ),
+        ),
+    );
 }

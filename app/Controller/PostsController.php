@@ -93,4 +93,20 @@ class PostsController extends AppController {
 		$this->Session->setFlash(__('Post was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+
+	/**
+	 * import
+	 *
+	 */
+	public function import(){
+		if ($this->request->is('post')) {
+			$this->Post->create();
+			if ($this->Post->save($this->request->data)) {
+				$this->Session->setFlash(__('The post has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The post could not be saved. Please, try again.'));
+			}
+		}
+	}
 }

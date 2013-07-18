@@ -119,6 +119,7 @@ class PostsController extends AppController {
 			}
 			} catch (YacsvException $e) {
 				$this->Session->setFlash($e->getMessage());
+				$this->set('importValidationErrors', $this->Post->importValidationErrors);
 			}
 		}
 	}

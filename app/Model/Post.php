@@ -17,6 +17,17 @@ class Post extends AppModel {
         'Yacsv.Importer',
     );
 
+    // POSTされているCSVファイルのフィールド名
+    public $importFilterArgs = array(
+        array('name' => 'csvfile'), // $data['Post']['csvfile']でPOSTされてくる
+    );
+
+    // 何列目がどのフィールドか
+    public $importFields = array(
+        'title', // 1列目はPost.title
+        'body', // 2列目はPost.body
+    );
+
     public $validate = array(
         'title' => array(
             'notEmptyTitle' => array(

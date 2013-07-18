@@ -13,6 +13,10 @@ class Post extends AppModel {
      */
     public $displayField = 'title';
 
+    public $actsAs = array(
+        'Yacsv.Importer',
+    );
+
     public $validate = array(
         'title' => array(
             'notEmptyTitle' => array(

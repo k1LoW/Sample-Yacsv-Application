@@ -107,6 +107,7 @@ class PostsController extends AppController {
 				// 'skipHeaderCount' => 1, // ヘッダの行は何行か？
 				'delimiter' => 'auto', // 区切り文字は何か？
 				'enclosure' => '"', // 囲み文字は何か？
+				'saveMethod' => array($this->Post, 'saveWithTimestamp'),
 				'forceImport' => false, // 問題のない行だけはそのままsaveするか/1行でも問題があれば全てrollbackするか？
 				'allowExtension' => array('csv', 'txt', 'tsv', 'CSV', 'TXT', 'TSV'), // 許可するファイル拡張子は何か？
 				// 'parseLimit' => false,  // インポート上限はどれくらいか？

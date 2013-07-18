@@ -100,13 +100,27 @@ class PostsController extends AppController {
 	 */
 	public function import(){
 		if ($this->request->is('post')) {
-			$this->Post->create();
-			if ($this->Post->save($this->request->data)) {
+			try {
+			$options = array(
+				'csvEncoding' => 'auto', // CSVの文字コードは何か？
+				'hasHeader' => true, // ヘッダはあるか？
+				// 'skipHeaderCount' => 1, // ヘッダの行は何行か？
+				'delimiter' => 'auto', // 区切り文字は何か？
+				'enclosure' => '"', // 囲み文字は何か？
+				'forceImport' => false, // 問題のない行だけはそのままsaveするか/1行でも問題があれば全てrollbackするか？
+				'allowExtension' => array('csv', 'txt', 'tsv', 'CSV', 'TXT', 'TSV'), // 許可するファイル拡張子は何か？
+				// 'parseLimit' => false,  // インポート上限はどれくらいか？
+			);
+			if ($this->Post->importCsv($this->request->data, $options)) {
 				$this->Session->setFlash(__('The post has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The post could not be saved. Please, try again.'));
 			}
+			} catch (YacsvException $e) {
+				$this->Session->setFlash($e->getMessage());
+			}
 		}
 	}
+
 }

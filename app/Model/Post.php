@@ -52,4 +52,17 @@ class Post extends AppModel {
             ),
         ),
     );
+
+    /**
+     * saveWithTimestamp
+     *
+     * @param $data
+     */
+    public function saveWithTimestamp($data){
+        if (!empty($data['Post']['title'])) {
+            $data['Post']['title'] = $data['Post']['title'] . date(' [Y-m-d]');
+        }
+        $this->create();
+        return $this->save($data);
+    }
 }
